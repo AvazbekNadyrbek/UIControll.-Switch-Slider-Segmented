@@ -10,13 +10,23 @@ import UIKit
 class ViewController: UIViewController {
     
     lazy var btn = CustomButton(frame: CGRect(x: 30, y: 100, width: 200, height: 200), image: UIImage(systemName: "plus")!, action: actionBtn)
-    lazy var actionBtn: UIAction = UIAction { _ in
-        print("Button is pressed")
+    
+    lazy var actionBtn: UIAction = UIAction { action in
+        print("Button is pressed ny \(action.sender)")
     }
+    
+    lazy var switchVIew: UISwitch = {
+        $0.frame.origin = CGPoint(x: 30, y: 100)
+        $0.onTintColor = .black
+        $0.addAction(actionBtn, for: .valueChanged)
+        return $0
+    }(UISwitch())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        view.backgroundColor = .systemGray4
         view.addSubview(btn)
+        view.addSubview(switchVIew)
     }
 }
 
