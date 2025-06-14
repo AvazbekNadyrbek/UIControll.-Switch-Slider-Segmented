@@ -46,6 +46,21 @@ class ViewController: UIViewController {
         print(Int(roundedValue))
     }
     
+    lazy var segmentedControl: UISegmentedControl = {
+        $0.frame = CGRect(x: 30, y: 430, width: 200, height: 50)
+        $0.insertSegment(withTitle: "Option 1", at: 0, animated: false)
+        $0.insertSegment(withTitle: "Option 2", at: 1, animated: false)
+        $0.insertSegment(withTitle: "Option 3", at: 2, animated: false)
+        $0.selectedSegmentIndex = 0
+        return $0
+    }(UISegmentedControl(frame: .zero, primaryAction: segmentedAction))
+    
+    lazy var segmentedAction: UIAction = UIAction { action in
+        guard let sender = action.sender as? UISegmentedControl else { return }
+        
+        print(sender.selectedSegmentIndex)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGray4
@@ -53,6 +68,7 @@ class ViewController: UIViewController {
         view.addSubview(switchVIew)
         view.addSubview(sliderUI)
         view.addSubview(textLabel)
+        view.addSubview(segmentedControl)
     }
 }
 
