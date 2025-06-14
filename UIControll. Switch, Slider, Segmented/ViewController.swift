@@ -22,11 +22,37 @@ class ViewController: UIViewController {
         return $0
     }(UISwitch())
     
+    lazy var sliderUI: UISlider = {
+        $0.frame = CGRect(x: 30, y: 300, width: 200, height: 50)
+        $0.minimumValue = 0
+        $0.maximumValue = 100
+        $0.isContinuous = true
+        $0.addAction(sliderAction, for: .valueChanged)
+        return $0
+    }(UISlider())
+    
+    lazy var textLabel: UILabel = {
+        $0.frame = CGRect(x: 30, y: 360, width: 200, height: 50)
+        
+        return $0
+    }(UILabel())
+    
+    lazy var sliderAction: UIAction = UIAction { action in
+        guard let sender = action.sender as? UISlider else { return }
+        
+        let step: Float = 20
+        let roundedValue = round(sender.value / step) * step
+        sender.value = roundedValue        // «приклеиваем» бегунок
+        print(Int(roundedValue))
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGray4
         view.addSubview(btn)
         view.addSubview(switchVIew)
+        view.addSubview(sliderUI)
+        view.addSubview(textLabel)
     }
 }
 
@@ -51,4 +77,3 @@ class CustomButton: UIControl {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
